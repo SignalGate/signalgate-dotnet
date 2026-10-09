@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SignalGate/SignalGate.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SignalGate.Tests/SignalGate.Tests.csproj" />
+    <Project Path="tests/SignalGate.AotSmoke/SignalGate.AotSmoke.csproj" />
+    <Project Path="tests/SignalGate.DocSnippets/SignalGate.DocSnippets.csproj" />
+  </Folder>
+</Solution>

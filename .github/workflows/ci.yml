@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: "1"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+
+jobs:
+  build:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Check formatting
+        run: dotnet format SignalGate.slnx --verify-no-changes
+
+      - name: Build
+        run: dotnet build SignalGate.slnx -c Release
+
+      - name: Test (net8.0 and net10.0)
+        run: dotnet test --solution SignalGate.slnx -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack src/SignalGate/SignalGate.csproj -c Release -o artifacts --no-build
+
+      - name: Verify package output
+        shell: bash
+        run: |
+          version=$(dotnet msbuild src/SignalGate/SignalGate.csproj -getProperty:Version)
+          expected=$(printf '%s\n' "SignalGate.${version}.nupkg" "SignalGate.${version}.snupkg")
+          actual=$(ls artifacts | sort)
+          if [ "$actual" != "$expected" ]; then
+            echo "Unexpected package output:"
+            echo "$actual"
+            exit 1
+          fi
+
+  aot-smoke:
+    name: Native AOT smoke (linux-x64)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish with Native AOT (warnings are errors)
+        run: dotnet publish tests/SignalGate.AotSmoke/SignalGate.AotSmoke.csproj -c Release -r linux-x64 -warnaserror -o aot
+
+      - name: Run
+        run: ./aot/SignalGate.AotSmoke

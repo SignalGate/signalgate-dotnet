@@ -1,0 +1,6 @@
+[*.cs]
+# Not every cancellable call needs the test's cancellation token; every test is bounded by a time limit instead.
+dotnet_diagnostic.xUnit1051.severity = none
+# Every test has a time limit so that a hang fails that test instead of the whole run; the limit does not
+# require the test to observe the test's cancellation token.
+dotnet_diagnostic.xUnit1069.severity = none

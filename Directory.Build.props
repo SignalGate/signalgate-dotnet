@@ -1,0 +1,34 @@
+<Project>
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Analysis">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>10.0-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Strong naming">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)SignalGate.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <SignalGatePublicKey>00240000048000009400000006020000002400005253413100040000010001002de0fe2c374b0235e740d4f1eb391140949dd9ea72a04c09b217b1030e18a80474b14429553857cfa2752ff882bbc1582668da7d890c02c97fc4c2e1fc85c8c50dd635bb0dea26948788715f62158aeb6119d2357055a59f6b895ae3c1459ddba4ac58d02ee25c4e1bfb4ee67cc8a2db16d774e72e67bb7536ffef1a376436c2</SignalGatePublicKey>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Dependency audit">
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <WarningsAsErrors>$(WarningsAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsAsErrors>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1900</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,121 @@
+#nullable enable
+SignalGate.CheckActions
+SignalGate.CheckResult
+SignalGate.CheckResult.Action.get -> string!
+SignalGate.CheckResult.CheckResult(string! action, double score, string! requestId, string! tenantId, string! timestamp, long processingTimeUs, bool failedOpen) -> void
+SignalGate.CheckResult.FailedOpen.get -> bool
+SignalGate.CheckResult.ProcessingTimeUs.get -> long
+SignalGate.CheckResult.RequestId.get -> string!
+SignalGate.CheckResult.Score.get -> double
+SignalGate.CheckResult.TenantId.get -> string!
+SignalGate.CheckResult.Timestamp.get -> string!
+SignalGate.EncryptedPayload
+SignalGate.EncryptedPayload.Encrypted.get -> string?
+SignalGate.EncryptedPayload.EncryptedPayload(string? encrypted, long timestamp, string? nonce, int? v = null) -> void
+SignalGate.EncryptedPayload.Nonce.get -> string?
+SignalGate.EncryptedPayload.Timestamp.get -> long
+SignalGate.EncryptedPayload.V.get -> int?
+SignalGate.ISignalGateLogger
+SignalGate.ISignalGateLogger.Debug(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.ISignalGateLogger.Error(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.ISignalGateLogger.Info(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.ISignalGateLogger.Warn(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.MetricSample
+SignalGate.MetricSample.<Clone>$() -> SignalGate.MetricSample!
+SignalGate.MetricSample.Deconstruct(out string! Name, out System.Collections.Generic.IReadOnlyDictionary<string!, string!>! Labels, out long Value) -> void
+SignalGate.MetricSample.Equals(SignalGate.MetricSample? other) -> bool
+SignalGate.MetricSample.Labels.get -> System.Collections.Generic.IReadOnlyDictionary<string!, string!>!
+SignalGate.MetricSample.Labels.init -> void
+SignalGate.MetricSample.MetricSample(string! Name, System.Collections.Generic.IReadOnlyDictionary<string!, string!>! Labels, long Value) -> void
+SignalGate.MetricSample.Name.get -> string!
+SignalGate.MetricSample.Name.init -> void
+SignalGate.MetricSample.Value.get -> long
+SignalGate.MetricSample.Value.init -> void
+SignalGate.NoopSignalGateLogger
+SignalGate.NoopSignalGateLogger.Debug(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.NoopSignalGateLogger.Error(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.NoopSignalGateLogger.Info(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.NoopSignalGateLogger.Warn(string! message, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? fields = null) -> void
+SignalGate.SignalGateClient
+SignalGate.SignalGateClient.CheckAsync(SignalGate.SignalGateEvent! evt, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<SignalGate.CheckResult!>!
+SignalGate.SignalGateClient.CloseAsync(System.TimeSpan? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+SignalGate.SignalGateClient.Dispose() -> void
+SignalGate.SignalGateClient.DisposeAsync() -> System.Threading.Tasks.ValueTask
+SignalGate.SignalGateClient.Log(SignalGate.SignalGateEvent? evt) -> void
+SignalGate.SignalGateClient.Metrics.get -> SignalGate.SignalGateMetrics!
+SignalGate.SignalGateClient.SignalGateClient(SignalGate.SignalGateClientOptions! options) -> void
+SignalGate.SignalGateClient.SignalGateClient(string! apiKey) -> void
+SignalGate.SignalGateClientOptions
+SignalGate.SignalGateClientOptions.ApiKey.get -> string!
+SignalGate.SignalGateClientOptions.ApiKey.set -> void
+SignalGate.SignalGateClientOptions.CheckTimeoutMs.get -> int
+SignalGate.SignalGateClientOptions.CheckTimeoutMs.set -> void
+SignalGate.SignalGateClientOptions.FailOpen.get -> bool
+SignalGate.SignalGateClientOptions.FailOpen.set -> void
+SignalGate.SignalGateClientOptions.HttpHandler.get -> System.Net.Http.HttpMessageHandler?
+SignalGate.SignalGateClientOptions.HttpHandler.set -> void
+SignalGate.SignalGateClientOptions.LogMaxRetries.get -> int
+SignalGate.SignalGateClientOptions.LogMaxRetries.set -> void
+SignalGate.SignalGateClientOptions.LogQueueCapacity.get -> int
+SignalGate.SignalGateClientOptions.LogQueueCapacity.set -> void
+SignalGate.SignalGateClientOptions.LogRetryBaseMs.get -> int
+SignalGate.SignalGateClientOptions.LogRetryBaseMs.set -> void
+SignalGate.SignalGateClientOptions.LogTimeoutMs.get -> int
+SignalGate.SignalGateClientOptions.LogTimeoutMs.set -> void
+SignalGate.SignalGateClientOptions.Logger.get -> SignalGate.ISignalGateLogger?
+SignalGate.SignalGateClientOptions.Logger.set -> void
+SignalGate.SignalGateClientOptions.SignalGateClientOptions() -> void
+SignalGate.SignalGateConfigException
+SignalGate.SignalGateConfigException.SignalGateConfigException() -> void
+SignalGate.SignalGateConfigException.SignalGateConfigException(string? message) -> void
+SignalGate.SignalGateConfigException.SignalGateConfigException(string? message, System.Exception? innerException) -> void
+SignalGate.SignalGateEvent
+SignalGate.SignalGateEvent.Custom.get -> System.Collections.Generic.IReadOnlyDictionary<string!, object?>?
+SignalGate.SignalGateEvent.Ip.get -> string!
+SignalGate.SignalGateEvent.Method.get -> string!
+SignalGate.SignalGateEvent.Payload.get -> SignalGate.EncryptedPayload!
+SignalGate.SignalGateEvent.SignalGateEvent(string! userId, string! ip, string! method, System.DateTimeOffset timestamp, SignalGate.EncryptedPayload! payload, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? custom = null) -> void
+SignalGate.SignalGateEvent.SignalGateEvent(string! userId, string! ip, string! method, string! timestamp, SignalGate.EncryptedPayload! payload, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? custom = null) -> void
+SignalGate.SignalGateEvent.Timestamp.get -> string!
+SignalGate.SignalGateEvent.UserId.get -> string!
+SignalGate.SignalGateException
+SignalGate.SignalGateException.SignalGateException() -> void
+SignalGate.SignalGateException.SignalGateException(string? message) -> void
+SignalGate.SignalGateException.SignalGateException(string? message, System.Exception? innerException) -> void
+SignalGate.SignalGateMetrics
+SignalGate.SignalGateMetrics.Get(string! name, System.Collections.Generic.IReadOnlyDictionary<string!, string!>? labels = null) -> long
+SignalGate.SignalGateMetrics.Snapshot() -> System.Collections.Generic.IReadOnlyList<SignalGate.MetricSample!>!
+SignalGate.SignalGateMetrics.SnapshotFlat() -> System.Collections.Generic.IReadOnlyDictionary<string!, long>!
+SignalGate.SignalGateNetworkException
+SignalGate.SignalGateNetworkException.SignalGateNetworkException() -> void
+SignalGate.SignalGateNetworkException.SignalGateNetworkException(string? message) -> void
+SignalGate.SignalGateNetworkException.SignalGateNetworkException(string? message, System.Exception? innerException) -> void
+SignalGate.SignalGateServerException
+SignalGate.SignalGateServerException.Code.get -> string!
+SignalGate.SignalGateServerException.Details.get -> System.Collections.Generic.IReadOnlyDictionary<string!, string!>?
+SignalGate.SignalGateServerException.RequestId.get -> string!
+SignalGate.SignalGateServerException.ServerMessage.get -> string!
+SignalGate.SignalGateServerException.SignalGateServerException() -> void
+SignalGate.SignalGateServerException.SignalGateServerException(int statusCode, string! code, string! serverMessage, string! requestId, System.Collections.Generic.IReadOnlyDictionary<string!, string!>? details = null, System.Exception? innerException = null) -> void
+SignalGate.SignalGateServerException.SignalGateServerException(string? message) -> void
+SignalGate.SignalGateServerException.SignalGateServerException(string? message, System.Exception? innerException) -> void
+SignalGate.SignalGateServerException.StatusCode.get -> int
+SignalGate.SignalGateTimeoutException
+SignalGate.SignalGateTimeoutException.SignalGateTimeoutException() -> void
+SignalGate.SignalGateTimeoutException.SignalGateTimeoutException(string? message) -> void
+SignalGate.SignalGateTimeoutException.SignalGateTimeoutException(string? message, System.Exception? innerException) -> void
+const SignalGate.CheckActions.AdminAlert = "admin_alert" -> string!
+const SignalGate.CheckActions.Allow = "allow" -> string!
+const SignalGate.CheckActions.Block = "block" -> string!
+const SignalGate.CheckActions.DryRunBlock = "dry_run_block" -> string!
+const SignalGate.SignalGateClient.SdkName = "signalgate-backend-sdk" -> string!
+override SignalGate.MetricSample.Equals(object? obj) -> bool
+override SignalGate.MetricSample.GetHashCode() -> int
+override SignalGate.MetricSample.ToString() -> string!
+override SignalGate.SignalGateClient.ToString() -> string!
+override SignalGate.SignalGateClientOptions.ToString() -> string!
+static SignalGate.MetricSample.operator !=(SignalGate.MetricSample? left, SignalGate.MetricSample? right) -> bool
+static SignalGate.MetricSample.operator ==(SignalGate.MetricSample? left, SignalGate.MetricSample? right) -> bool
+static SignalGate.NoopSignalGateLogger.Instance.get -> SignalGate.NoopSignalGateLogger!
+static SignalGate.SignalGateClient.SdkVersion.get -> string!
+static SignalGate.SignalGateEvent.TryCreate(string? userId, string? ip, string? method, System.DateTimeOffset timestamp, SignalGate.EncryptedPayload? payload, out SignalGate.SignalGateEvent? evt, System.Collections.Generic.IReadOnlyDictionary<string!, object?>? custom = null) -> bool

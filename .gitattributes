@@ -1,0 +1,5 @@
+# Normalize line endings so formatting checks behave the same on every OS.
+* text=auto eol=lf
+
+*.snk binary
+*.png binary
