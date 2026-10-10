@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SignalGate.DocSnippets.Snippets;
 
 #region readme:aspnetcore-request-type
-public sealed record CheckoutRequest(string CartId, EncryptedPayload? SignalGate, EncryptedPayload? SignalGateLog);
+public sealed record CheckoutRequest(
+    string CartId,
+    EncryptedPayload? SignalGate,
+    [property: JsonPropertyName("signalgate_log")] EncryptedPayload? SignalGateLog);
 #endregion
 
 internal static class AspNetCoreSnippets

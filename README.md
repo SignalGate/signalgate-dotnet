@@ -104,10 +104,14 @@ builder.Services.AddSingleton(_ => new SignalGateClient(builder.Configuration["S
 An instance passed directly, as in `AddSingleton(new SignalGateClient(...))`, is **not** disposed by the container.
 
 `EncryptedPayload` binds from a JSON request body with `System.Text.Json`, so the payloads your frontend sends can
-be properties of your own request type:
+be properties of your own request type. With the frontend sending them as `signalgate` and `signalgate_log`, the
+first binds to `SignalGate` by name; the second needs `[JsonPropertyName]` (from `System.Text.Json.Serialization`):
 
 ```csharp
-public sealed record CheckoutRequest(string CartId, EncryptedPayload? SignalGate, EncryptedPayload? SignalGateLog);
+public sealed record CheckoutRequest(
+    string CartId,
+    EncryptedPayload? SignalGate,
+    [property: JsonPropertyName("signalgate_log")] EncryptedPayload? SignalGateLog);
 ```
 
 Keep handlers async: await `CheckAsync`, and never call `.Result` or `.Wait()` on it.
